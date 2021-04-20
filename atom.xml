@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yzhou404.github.io</id>
     <title>博客|Stray Birds</title>
-    <updated>2021-04-20T10:19:49.692Z</updated>
+    <updated>2021-04-20T10:24:45.031Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yzhou404.github.io"/>
     <link rel="self" href="https://yzhou404.github.io/atom.xml"/>
@@ -10,6 +10,119 @@
     <logo>https://yzhou404.github.io/images/avatar.png</logo>
     <icon>https://yzhou404.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 博客|Stray Birds</rights>
+    <entry>
+        <title type="html"><![CDATA[C++类模板实现的栈类]]></title>
+        <id>https://yzhou404.github.io/post/clei-mo-ban-shi-xian-de-zhan-lei/</id>
+        <link href="https://yzhou404.github.io/post/clei-mo-ban-shi-xian-de-zhan-lei/">
+        </link>
+        <updated>2021-04-20T10:20:02.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-c++">/*********************Stack类模板***********************/
+/*
+接口函数:   StackClass()            -默认构造函数
+            void push(T data);      -压栈
+            T pop();                -弹栈
+            T getTop();             -获取栈顶元素
+            bool isEmpty();         -判断栈是否为空
+            bool isFull();          -判断栈是否为满
+            void setNull();         -栈清空
+            class Empty{};          -异常内部类，当栈下溢抛出
+            class Full{};           -异常内部类，当栈上溢抛出
+*/
+#ifndef STACKCLASS_HPP
+#define STACKCLASS_HPP
+
+template &lt;class T, int capacity = 100&gt;
+class StackClass
+{
+private:
+    T *point;
+    int top;
+
+public:
+    StackClass();
+    ~StackClass();
+    void push(T data);
+    T pop();
+    T getTop();
+    bool isEmpty();
+    bool isFull();
+    void setNull();
+    class Empty
+    {
+    };
+    class Full
+    {
+    };
+};
+
+template &lt;class T, int capacity&gt;
+StackClass&lt;T, capacity&gt;::StackClass()
+{
+    //size = capacity;
+    top = -1;
+    point = new T[capacity];
+}
+template &lt;class T, int capacity&gt;
+StackClass&lt;T, capacity&gt;::~StackClass()
+{
+    delete[] point;
+}
+template &lt;class T, int capacity&gt;
+void StackClass&lt;T, capacity&gt;::push(T data)
+{
+    if (isFull())
+    {
+        throw Full();
+    }
+    else
+    {
+        point[++top] = data;
+    }
+}
+template &lt;class T, int capacity&gt;
+T StackClass&lt;T, capacity&gt;::pop()
+{
+    if (isEmpty())
+    {
+        throw Empty();
+    }
+    else
+    {
+        return point[top--];
+    }
+}
+template &lt;class T, int capacity&gt;
+T StackClass&lt;T, capacity&gt;::getTop()
+{
+    if (!isEmpty())
+        return point[top];
+}
+template &lt;class T, int capacity&gt;
+bool StackClass&lt;T, capacity&gt;::isEmpty()
+{
+    if (top == -1)
+        return true;
+    else
+        return false;
+}
+template &lt;class T, int capacity&gt;
+bool StackClass&lt;T, capacity&gt;::isFull()
+{
+    if (top == capacity - 1)
+        return true;
+    else
+        return false;
+}
+template &lt;class T, int capacity&gt;
+void StackClass&lt;T, capacity&gt;::setNull()
+{
+    top = -1;
+}
+
+#endif
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://yzhou404.github.io/post/hello-gridea/</id>
